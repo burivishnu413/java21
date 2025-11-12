@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Cancer Detection</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+    body {background:#f4f7fb; color:#333;}
+
+    header {
+      background:linear-gradient(90deg,#003580,#007bff);
+      color:white; text-align:center;
+      padding:20px; box-shadow:0 2px 4px rgba(0,0,0,0.2);
+    }
+    header h1 {font-size:26px;}
+    header p {font-size:14px; opacity:0.9;}
+
+    .container {display:flex; min-height:85vh;}
+
+    .sidebar {
+      width:230px;
+      background:linear-gradient(180deg,#e0e9ff,#f4f7fb);
+      padding:20px;
+      box-shadow:2px 0 4px rgba(0,0,0,0.1);
+    }
+    .sidebar ul {list-style:none;}
+    .sidebar li {margin-bottom:12px;}
+    .sidebar a {
+      text-decoration:none;
+      color:#333;
+      display:block;
+      padding:10px;
+      border-radius:8px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background:#007bff;
+      color:white;
+      box-shadow:0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .content {flex:1; padding:25px; background:white;}
+    .hidden {display:none;}
+
+    .card {
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:15px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+    .card:hover {transform:translateY(-3px);}
+    .card img {width:100%; border-radius:8px; margin-top:10px;}
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:15px;
+    }
+
+    .upload-form {display:flex; flex-direction:column; gap:10px;}
+    .upload-form button {
+      background:#007bff;
+      color:white;
+      border:none;
+      padding:10px;
+      border-radius:5px;
+      cursor:pointer;
+    }
+    .upload-form button:hover {background:#005ecb;}
+
+    ul.treatment-list {margin-top:10px;}
+    ul.treatment-list li {margin-bottom:8px;}
+
+    footer {
+      background:linear-gradient(90deg,#003580,#007bff);
+      color:white; text-align:center; padding:10px;
+      box-shadow:0 -2px 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Automated Cancer Detection</h1>
+    <p>Using Histopathological Image Analysis</p>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a class="menu active" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a class="menu" onclick="showSection('upload')">Upload Image</a></li>
+        <li><a class="menu" onclick="showSection('prediction')">Prediction</a></li>
+        <li><a class="menu" onclick="showSection('doctors')">Doctors</a></li>
+        <li><a class="menu" onclick="showSection('treatments')">Treatments</a></li>
+        <li><a class="menu" onclick="showSection('about')">About Project</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <!-- Dashboard -->
+      <section id="dashboard">
+        <h2 style="color:#003580;">Dashboard</h2>
+        <p>Welcome to the Cancer Detection System Dashboard.</p>
+        <br>
+        <div class="grid">
+          <div class="card" style="background:#dfe9ff;">
+            <h3>Upload Status</h3>
+            <p>No recent uploads.</p>
+            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/58/upload-1294915_1280.png" alt="Upload">
+          </div>
+          <div class="card" style="background:#fff0f0;">
+            <h3>Recent Predictions</h3>
+            <p>0 cancerous, 0 non-cancerous.</p>
+            <img src="https://cdn.pixabay.com/photo/2020/06/17/08/44/data-5305366_1280.jpg" alt="Prediction">
+          </div>
+          <div class="card" style="background:#e9fff0;">
+            <h3>Model Accuracy</h3>
+            <p>95.4%</p>
+            <img src="https://cdn.pixabay.com/photo/2017/01/31/20/47/graph-2020007_1280.png" alt="Graph">
+          </div>
+          <div class="card" style="background:#fff7e6;">
+            <h3>Reports Generated</h3>
+            <p>2 Reports</p>
+            <img src="https://cdn.pixabay.com/photo/2016/09/04/18/59/report-1643430_1280.png" alt="Reports">
+          </div>
+        </div>
+      </section>
+
+      <!-- Upload -->
+      <section id="upload" class="hidden">
+        <h2 style="color:#003580;">Upload Histopathological Image</h2>
+        <form class="upload-form">
+          <label>Select image:</label>
+          <input type="file" accept="image/*"><br>
+          <button type="submit">Upload</button>
+        </form>
+        <img src="https://cdn.pixabay.com/photo/2020/09/11/19/34/laboratory-5569280_1280.jpg" alt="Lab" style="margin-top:20px; border-radius:8px; width:100%;">
+      </section>
+
+      <!-- Prediction -->
+      <section id="prediction" class="hidden">
+        <h2 style="color:#003580;">Prediction Output</h2>
+        <div class="card">
+          <p><strong>Status:</strong> Cancer Detected</p>
+          <p><strong>Confidence:</strong> 94.6%</p>
+          <p><strong>Type:</strong> Invasive Ductal Carcinoma</p>
+          <img src="https://cdn.pixabay.com/photo/2020/02/15/08/43/artificial-intelligence-4841178_1280.jpg" alt="AI">
+        </div>
+      </section>
+
+      <!-- Doctors -->
+      <section id="doctors" class="hidden">
+        <h2 style="color:#003580;">Expert Oncologists</h2>
+        <div class="grid">
+          <div class="card"><img src="https://cdn.pixabay.com/photo/2016/03/31/20/51/doctor-1295591_1280.png" alt="Doctor"><h3>Dr. Meera Patel</h3><p>Oncologist, AIIMS</p></div>
+          <div class="card"><img src="https://cdn.pixabay.com/photo/2017/01/10/19/05/doctor-1975702_1280.png" alt="Doctor"><h3>Dr. Arjun Rao</h3><p>Pathologist, Apollo Hospitals</p></div>
+          <div class="card"><img src="https://cdn.pixabay.com/photo/2016/04/01/09/22/doctor-1303071_1280.png" alt="Doctor"><h3>Dr. Sneha Kapoor</h3><p>Researcher, Tata Memorial</p></div>
+        </div>
+      </section>
+
+      <!-- Treatments -->
+      <section id="treatments" class="hidden">
+        <h2 style="color:#003580;">Cancer Treatment Options</h2>
+        <ul class="treatment-list">
+          <li><strong>Chemotherapy:</strong> Uses drugs to kill cancer cells.</li>
+          <li><strong>Radiation Therapy:</strong> Targets and destroys cancerous tissue.</li>
+          <li><strong>Surgery:</strong> Removes cancerous regions.</li>
+          <li><strong>Immunotherapy:</strong> Boosts immune system response.</li>
+        </ul>
+        <img src="https://cdn.pixabay.com/photo/2021/02/18/19/22/medicine-6027040_1280.jpg" alt="Treatment" style="margin-top:20px; border-radius:8px; width:100%;">
+      </section>
+
+      <!-- About -->
+      <section id="about" class="hidden">
+        <h2 style="color:#003580;">About This Project</h2>
+        <p>This project detects cancer automatically from histopathological images using AI models like CNN, PCA, and LDA.</p>
+        <p>It helps doctors make faster, more accurate diagnoses to improve patient care.</p>
+        <img src="https://cdn.pixabay.com/photo/2019/03/02/13/33/microscope-4023716_1280.jpg" alt="Microscope" style="margin-top:20px; border-radius:8px; width:100%;">
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>© 2025 Automated Cancer Detection Project</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+      document.querySelectorAll('.menu').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.remove('hidden');
+      event.target.classList.add('active');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
